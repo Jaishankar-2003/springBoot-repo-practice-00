@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 @Table(name= "user")
 public class userEntity
 {
+
     public userEntity()
     {
         super();
@@ -17,13 +18,15 @@ public class userEntity
     private Long id;
     private String name;
     private String email;
+    private Long DoB;
 
 
-    public userEntity(Long id, String name, String email)
+    public userEntity(Long id, String name, String email , Long DoB)
     {
         this.id = id;
         this.name = name;
         this.email = email;
+        this.DoB = DoB;
     }
 
 

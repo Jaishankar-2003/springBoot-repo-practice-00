@@ -6,11 +6,22 @@ public class user
     private String name;
     private String email;
 
-    public user(long id, String name, String email)
+    public Long getDoB() {
+        return DoB;
+    }
+
+    public void setDoB(Long doB) {
+        DoB = doB;
+    }
+
+    private  Long DoB;
+
+    public user(long id, String name, String email , Long DoB)
     {
         this.id = id;
         this.name = name;
         this.email = email;
+        this.DoB = DoB;
     }
 
     public Long getId()

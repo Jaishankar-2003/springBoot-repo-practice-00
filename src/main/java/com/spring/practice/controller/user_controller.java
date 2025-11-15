@@ -20,9 +20,9 @@ import java.util.List;
         @GetMapping
         public List<user> getuers()
         {
-            return Arrays.asList(new user(1L,"john","john@gmail.com"),
-                    new user(2L,"joe","jo@gmail.com"),
-            new user(2L,"joy","joi@gmail.com")
+            return Arrays.asList(new user(1L,"john","john@gmail.com",12L),
+                    new user(2L,"joe","jo@gmail.com" , 22L),
+            new user(2L,"joy","joi@gmail.com" , 22L)
             );
         }
     }
