@@ -46,8 +46,7 @@ import java.util.List;
         public userEntity getuserById(@PathVariable Long id)
         {
             //return Optional.ofNullable(userRepository.findById(id).orElseThrow(() -> new ResourceNotFound("user not found " + id)));
-            return userRepository.findById(id)
-                    .orElseThrow(() -> new ResourceNotFound("User not found " + id));
+            return userRepository.findById(id).orElseThrow(() -> new ResourceNotFound("User not found " + id));
         }
 
         @PutMapping("/{id}")
@@ -55,7 +54,7 @@ import java.util.List;
         {
           userEntity userdata =  userRepository.findById(id).orElseThrow(() -> new ResourceNotFound("User not found " + id));
 
-          userdata.setEmail(user.getEmail());
+            userdata.setEmail(user.getEmail());
             userdata.setName(user.getName());
             userdata.setDob(user.getDob());
             userRepository.save(userdata);

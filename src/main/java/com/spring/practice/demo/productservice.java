@@ -14,7 +14,6 @@ public class productservice
     static
     {
         Product honey = new Product();
-
         honey.setId("1");
         honey.setName("Honey");
         productRepo.put(honey.getId(), honey);
@@ -39,9 +38,6 @@ public class productservice
         itest.setName("itest");
         productRepo.put(itest.getId(), itest);
 
-
-
-
     }
 
     @RequestMapping(value = "/products" , method = RequestMethod.GET)
@@ -60,10 +56,17 @@ public class productservice
     @RequestMapping(value="/products/{id}", method=RequestMethod.PUT)
     public ResponseEntity<Object> updateProduct(@PathVariable("id") String id, @RequestBody Product product)
     {
-        productRepo.remove(id);
+        //productRepo.remove(id);
         product.setId(id);
         productRepo.put(id, product);
         return new ResponseEntity<>("Product is updated successsfully", HttpStatus.OK);
+    }
+
+    @RequestMapping(value="/products/{id}", method=RequestMethod.DELETE)
+    public ResponseEntity<Object> delete(@PathVariable("id") String id)
+    {
+        productRepo.remove(id);
+        return new ResponseEntity<>("Product is deleted successsfully", HttpStatus.OK);
     }
 
 
