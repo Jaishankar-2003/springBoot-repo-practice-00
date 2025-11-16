@@ -2,13 +2,12 @@ package com.spring.practice.controller;
 
 import com.spring.practice.entity.userEntity;
 import com.spring.practice.exception.ResourceNotFound;
-import com.spring.practice.model.user;
 import com.spring.practice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
     @RequestMapping("/api/users")
@@ -49,6 +48,27 @@ import java.util.Optional;
             //return Optional.ofNullable(userRepository.findById(id).orElseThrow(() -> new ResourceNotFound("user not found " + id)));
             return userRepository.findById(id)
                     .orElseThrow(() -> new ResourceNotFound("User not found " + id));
+        }
+
+        @PutMapping("/{id}")
+        public userEntity updateuser(@PathVariable Long id , @RequestBody userEntity user)
+        {
+          userEntity userdata =  userRepository.findById(id).orElseThrow(() -> new ResourceNotFound("User not found " + id));
+
+          userdata.setEmail(user.getEmail());
+            userdata.setName(user.getName());
+            userdata.setDob(user.getDob());
+            userRepository.save(userdata);
+            return userdata;
+        }
+
+        @DeleteMapping("/{id}")
+        public ResponseEntity<Object> deleteuser(@PathVariable Long id)
+        {
+           userEntity userdata =  userRepository.findById(id).orElseThrow(() -> new ResourceNotFound("User not found " + id));
+           userRepository.delete(userdata);
+           return ResponseEntity.ok().build();
+
         }
 
 

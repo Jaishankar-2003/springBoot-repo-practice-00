@@ -5,6 +5,7 @@ package com.spring.practice.entity;
 //import lombok.Data;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 @Entity
@@ -20,17 +21,20 @@ public class userEntity
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
     private String email;
-    private Long DoB;
+
+    @JsonProperty("DoB")
+    private Integer dob;
 
 
-    public userEntity(Long id, String name, String email , Long DoB)
+    public userEntity(Long id, String name, String email , Integer DoB)
     {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.DoB = DoB;
+        this.dob = dob;
     }
 
     public Long getId() { return id; }
@@ -42,8 +46,8 @@ public class userEntity
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
 
-    public Long getDoB() { return DoB; }
-    public void setDoB(Long doB) { DoB = doB; }
+    public Integer getDob() { return (dob); }
+    public void setDob(Integer dob) { this.dob = dob; }
 
 
 

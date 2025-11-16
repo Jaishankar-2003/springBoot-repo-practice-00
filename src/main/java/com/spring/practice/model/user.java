@@ -6,17 +6,17 @@ public class user
     private String name;
     private String email;
 
-    public Long getDoB() {
+    public Integer getDoB() {
         return DoB;
     }
 
-    public void setDoB(Long doB) {
-        DoB = doB;
+    public void setDoB(Integer doB) {
+        this.DoB = DoB;
     }
 
-    private  Long DoB;
+    private Integer DoB;
 
-    public user(long id, String name, String email , Long DoB)
+    public user(long id, String name, String email , Integer DoB)
     {
         this.id = id;
         this.name = name;
