@@ -36,7 +36,7 @@ import java.util.List;
         @PostMapping
         public userEntity createUser(@RequestBody userEntity user)
         {
-            System.out.println("user data: " + user.getName()+"," + user.getEmail());
+           // System.out.println("user data: " + user.getName()+"," + user.getEmail());
             return userRepository.save(user);
 
         }
