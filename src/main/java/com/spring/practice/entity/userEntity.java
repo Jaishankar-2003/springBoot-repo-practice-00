@@ -24,12 +24,14 @@ public class userEntity
 
     private String name;
     private String email;
+    private String username;
+    private String password;
 
     @JsonProperty("DoB")
     private Integer dob;
 
 
-    public userEntity(Long id, String name, String email , Integer DoB)
+    public userEntity(Long id, String name, String email , Integer DoB , String username , String password)
     {
         this.id = id;
         this.name = name;
