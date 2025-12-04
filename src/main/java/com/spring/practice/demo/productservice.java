@@ -41,9 +41,15 @@ public class productservice
     }
 
     @RequestMapping(value = "/products" , method = RequestMethod.GET)
-    public ResponseEntity<Object> getProduct()
+    public ResponseEntity<Object> getProductall()
     {
         return new ResponseEntity<>(productRepo.values(), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/products/{id}" , method = RequestMethod.GET)
+    public ResponseEntity<Object> getProduct(@PathVariable("id") String id)
+    {
+        return new ResponseEntity<>(productRepo.get(id), HttpStatus.OK);
     }
 
     @RequestMapping(value="/products", method= RequestMethod.POST)
@@ -68,6 +74,8 @@ public class productservice
         productRepo.remove(id);
         return new ResponseEntity<>("Product is deleted successsfully", HttpStatus.OK);
     }
+
+
 
 
 
