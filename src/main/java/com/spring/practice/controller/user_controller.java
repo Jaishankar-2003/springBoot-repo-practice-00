@@ -5,6 +5,7 @@ import com.spring.practice.exception.ResourceNotFound;
 import com.spring.practice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +16,11 @@ import java.util.List;
     {
         @Autowired
         public UserRepository userRepository;
+
+        @Autowired
+        private BCryptPasswordEncoder passwordEncoder;
+
+
 
 //        @GetMapping
 //        public String getuers()
@@ -36,6 +42,7 @@ import java.util.List;
         @PostMapping
         public userEntity createUser(@RequestBody userEntity user)
         {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
            // System.out.println("user data: " + user.getName()+"," + user.getEmail());
             return userRepository.save(user);
 
