@@ -4,15 +4,11 @@ import com.spring.practice.service.CustomerUserDetailService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractAuthenticationFilterConfigurer;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 
 @Configuration
@@ -46,14 +42,26 @@ public class securityconfig
 //    }
 
     @Bean
-    public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder)
+    public UserDetailsService userDetailsService()
     {
         return new CustomerUserDetailService();
     }
 
-    public void authenticationprovider()
-{
-}
+    @Bean
+    public DaoAuthenticationProvider authenticationprovider()
+    {
+        DaoAuthenticationProvider authpro = new DaoAuthenticationProvider();
+        authpro.setUserDetailsService(userDetailsService());
+        authpro.setPasswordEncoder(passwordEncoder());
+        return authpro;
+
+    }
+
+//    private UserDetailsService userDetailsService()
+//    {
+//        return null;
+//    }
+
     @Bean
     public BCryptPasswordEncoder passwordEncoder()
     {

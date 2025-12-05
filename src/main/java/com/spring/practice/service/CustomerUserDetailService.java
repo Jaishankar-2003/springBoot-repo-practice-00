@@ -3,10 +3,13 @@ package com.spring.practice.service;
 import com.spring.practice.entity.userEntity;
 import com.spring.practice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import java.util.Collections;
 
 public class CustomerUserDetailService implements UserDetailsService
 {
@@ -22,6 +25,6 @@ public class CustomerUserDetailService implements UserDetailsService
                 .orElseThrow(() -> new UsernameNotFoundException("user not found"));
 
 
-        return new User(user.getUsername(), user.getPassword(),null);
+        return new User(user.getUsername(), user.getPassword(), Collections.singleton(new SimpleGrantedAuthority("userrole")));
     }
 }
