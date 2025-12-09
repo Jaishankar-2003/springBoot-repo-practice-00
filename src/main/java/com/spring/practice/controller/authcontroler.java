@@ -42,6 +42,7 @@ public class authcontroler
             String token = jwtUtil.generatetoken(userDetails);
 
             return ResponseEntity.ok(Map.of("token", token));
+
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
