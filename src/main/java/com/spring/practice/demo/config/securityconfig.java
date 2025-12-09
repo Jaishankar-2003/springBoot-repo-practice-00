@@ -4,12 +4,16 @@ import com.spring.practice.service.CustomerUserDetailService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.DefaultSecurityFilterChain;
+
+import java.util.List;
+
 
 @Configuration
 @EnableWebSecurity
@@ -66,6 +70,12 @@ public class securityconfig
     public BCryptPasswordEncoder passwordEncoder()
     {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public ProviderManager authenticationmanager()
+    {
+        return new ProviderManager(List.of(authenticationprovider()));
     }
 
 

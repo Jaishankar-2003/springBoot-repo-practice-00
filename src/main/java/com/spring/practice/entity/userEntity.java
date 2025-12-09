@@ -24,6 +24,8 @@ public class userEntity
 
     private String name;
     private String email;
+
+    @Column(unique = true)
     private String username;
     private String password;
 

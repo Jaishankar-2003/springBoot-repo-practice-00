@@ -21,8 +21,7 @@ public class CustomerUserDetailService implements UserDetailsService
     {
         // fetch user from database
 
-        userEntity user =  userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("user not found"));
+        userEntity user =  userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("user not found"));
 
 
         return new User(user.getUsername(), user.getPassword(), Collections.singleton(new SimpleGrantedAuthority("userrole")));
