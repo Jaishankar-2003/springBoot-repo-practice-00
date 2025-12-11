@@ -4,8 +4,10 @@ import com.spring.practice.service.CustomerUserDetailService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -25,11 +27,12 @@ public class securityconfig
 
         http.authorizeHttpRequests(authz ->
                         authz
+                                .requestMatchers(HttpMethod.POST,"/auth/login").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/users").permitAll()
                                 .requestMatchers(HttpMethod.DELETE,"/api/users/**").permitAll()
                                 .requestMatchers("/api/users/**").authenticated()
                                 .requestMatchers("/dashboard").authenticated()                             //permitAll()
-                                .anyRequest().permitAll()
+                                .anyRequest().authenticated()
                 ).formLogin(form -> form.permitAll().defaultSuccessUrl("/home").defaultSuccessUrl("/test"))
                 .csrf(csrf -> csrf.disable());
 
@@ -72,11 +75,21 @@ public class securityconfig
         return new BCryptPasswordEncoder();
     }
 
+//    @Bean
+//    public ProviderManager authenticationmanager()
+//    {
+//        return new ProviderManager(List.of(authenticationprovider()));
+//    }
+
     @Bean
-    public ProviderManager authenticationmanager()
-    {
-        return new ProviderManager(List.of(authenticationprovider()));
+    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
+        return http.getSharedObject(AuthenticationManagerBuilder.class)
+                .userDetailsService(userDetailsService())
+                .passwordEncoder(passwordEncoder())
+                .and()
+                .build();
     }
+
 
 
 }

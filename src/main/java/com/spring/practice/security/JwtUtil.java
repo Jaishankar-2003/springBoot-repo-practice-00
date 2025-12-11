@@ -18,10 +18,13 @@ public class JwtUtil
 
     public String generatetoken(UserDetails userDetails)
     {
-        return String.valueOf(Jwts.builder()
+        String token = Jwts.builder()
                 .subject(userDetails.getUsername())
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
-                .signWith(SECRET_KEY,Jwts.SIG.HS256));
+                .signWith(SECRET_KEY,Jwts.SIG.HS256)
+                .compact();
+
+        return String.valueOf(token);
     }
 }
